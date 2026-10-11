@@ -76,6 +76,7 @@ plugin and the community **Spaced Repetition** plugin for reviewing cards.
 | `/sidequests` | List open side quests, pick one, learn it with a checklist, teach-back and cards |
 | `/flashcards [topic]` | Turn what you learned into Spaced Repetition cards and MCQs |
 | `/quiz [topic]` | Interactive quiz: MCQs and write-the-command recall, one question at a time |
+| `/senior-stats` | Learning stats: side quests by status, cards due for review, sessions and streak, what you've mastered |
 | `/recap` | Session note in Obsidian: what we did and why, commands, your decisions, concepts, next steps |
 | `/senior-init` | Write the rules into AGENTS.md, Copilot, Cursor, Windsurf and Cline instruction files |
 

@@ -1,0 +1,71 @@
+filters:
+  and:
+    - 'file.hasTag("sidequest")'
+    - 'file.ext == "md"'
+    - not:
+        - 'file.path.contains("Templates/")'
+
+formulas:
+  rank: 'if(priority == "high", 1, if(priority == "medium", 2, 3))'
+  age_days: 'if(created, (today() - date(created)).days, "")'
+
+properties:
+  file.name:
+    displayName: Side quest
+  formula.rank:
+    displayName: Rank
+  formula.age_days:
+    displayName: Days waiting
+  seen:
+    displayName: Seen
+  progress:
+    displayName: Progress
+
+views:
+  - type: table
+    name: Open
+    filters:
+      and:
+        - 'status == "open"'
+    order:
+      - file.name
+      - priority
+      - size
+      - seen
+      - project
+      - formula.age_days
+    groupBy:
+      property: formula.rank
+      direction: ASC
+  - type: table
+    name: In progress
+    filters:
+      and:
+        - 'status == "learning"'
+    order:
+      - file.name
+      - progress
+      - priority
+      - project
+  - type: table
+    name: By project
+    filters:
+      and:
+        - 'status != "done"'
+    order:
+      - file.name
+      - status
+      - priority
+      - progress
+    groupBy:
+      property: project
+      direction: ASC
+  - type: table
+    name: Done
+    filters:
+      and:
+        - 'status == "done"'
+    order:
+      - file.name
+      - project
+      - completed

@@ -1,0 +1,38 @@
+{
+  "name": "patient-senior",
+  "version": "0.1.0",
+  "description": "The patient senior engineer you don't have. Explains every action and terminal command before it runs, teaches new concepts like a great professor, lets you make the decisions, and turns everything you learn into side quests and flashcards in Obsidian.",
+  "author": {
+    "name": "Anuraj Sathuluri",
+    "url": "https://github.com/randnumX"
+  },
+  "homepage": "https://github.com/randnumX/patient-senior",
+  "repository": "https://github.com/randnumX/patient-senior",
+  "license": "MIT",
+  "keywords": ["learning", "mentor", "teaching", "obsidian", "flashcards", "spaced-repetition", "junior-developer"],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null 2>&1 || exit 0; python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/senior_activate.py\"",
+            "timeout": 15,
+            "statusMessage": "Waking up your patient senior..."
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null 2>&1 || exit 0; python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/senior_activate.py\" --subagent",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

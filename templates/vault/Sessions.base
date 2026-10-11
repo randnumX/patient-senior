@@ -1,0 +1,41 @@
+filters:
+  and:
+    - 'file.hasTag("senior-session")'
+    - 'file.ext == "md"'
+    - not:
+        - 'file.path.contains("Templates/")'
+
+properties:
+  file.name:
+    displayName: Session
+  commands:
+    displayName: Commands
+  cards:
+    displayName: Cards
+  sidequests:
+    displayName: Side quests
+
+views:
+  - type: table
+    name: Recent
+    limit: 10
+    order:
+      - file.name
+      - date
+      - project
+      - commands
+      - cards
+      - sidequests
+    groupBy:
+      property: date
+      direction: DESC
+  - type: table
+    name: By project
+    order:
+      - file.name
+      - date
+      - commands
+      - cards
+    groupBy:
+      property: project
+      direction: ASC

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "patient-senior",
+  "description": "The patient senior engineer you don't have: learn everything your AI coding agent does.",
+  "owner": {
+    "name": "Anuraj Sathuluri",
+    "url": "https://github.com/randnumX"
+  },
+  "plugins": [
+    {
+      "name": "patient-senior",
+      "description": "Explain-before-acting mentor mode with professor-style teaching, side quests and Obsidian flashcards.",
+      "source": "./",
+      "category": "learning"
+    }
+  ]
+}

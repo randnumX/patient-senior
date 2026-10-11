@@ -141,6 +141,21 @@ matters, and a learning checklist that ends with **teaching it back in your own 
   `PATIENT_SENIOR_LEVEL`, project file, `~/.config/patient-senior/config.json`, then `full`.
 - Each `/command` is a skill in `skills/` - plain Markdown instructions you can read and change.
 
+## Honest numbers
+
+Measured with `claude plugin eval` (Claude Code 2.1.293, agent model Sonnet, default Haiku judge, 3 runs per arm, 11 Oct 2026). Every case runs **with** the plugin and **without** it; Δ is the difference. Reproduce with `claude plugin eval . --allow-tools Bash` (runs are sandboxed).
+
+| Case | With | Without | Δ |
+|---|---|---|---|
+| Pre-flight (what / why / risk + flag breakdown) appears **before** a command runs | 3/3 | 0/3 | **+1.00** |
+| Asks you to choose at a real decision point (cron vs systemd timer vs logrotate) instead of picking silently | 3/3 | 0/3 | **+1.00** |
+
+The first eval run scored 0/3 and 0/3: the breakdown came *after* the command, and the agent picked cron by
+itself. Both were fixed in the rules and re-measured - which is what the evals are for.
+
+**Cost:** the rules are about 1082 words (roughly 1,400 tokens) added to every session, and replies are longer by
+design. `light` reduces the teaching; `off` removes it. **What this does not show:** 3 runs per arm on one model is a small sample; the tasks are short and synthetic; and these evals measure the agent's *behaviour*, not whether people actually learn more - that needs real users.
+
 ## Honest limitations
 
 - Skills and rules are **instructions, not enforcement**. The model follows them closely, but it is not a

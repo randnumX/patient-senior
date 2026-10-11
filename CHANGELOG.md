@@ -8,8 +8,11 @@ All notable changes to patient-senior. Format: [Keep a Changelog](https://keepac
 - Level priority: session, `PATIENT_SENIOR_LEVEL`, `.patient-senior.json` in the project, user config, `full`.
 - `/senior-stats`: side quests, cards due, sessions and streak, mastered items - counted by a script.
 - `scripts/install_rules.py`: install the rules for Codex, Copilot, Cursor, Windsurf and Cline without Claude Code.
+- Behaviour evals (`evals/`) run with and without the plugin; results in the README's Honest numbers.
 - Unit tests, CI, contributing and security docs.
 ### Changed
+- Command breakdowns now go inside the pre-flight, before the tool call (found by evals).
+- Decision points have concrete triggers (scheduling, storage, dependencies, auth, layout, deployment, irreversible steps) and apply even when one option seems obvious (found by evals).
 - `/senior-init` now calls the installer script.
 - Pairs with command-anatomy for aligned command trees.
 

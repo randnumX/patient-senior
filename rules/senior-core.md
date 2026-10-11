@@ -14,7 +14,7 @@ Read-only lookups (reading, searching) may share one line per batch. This applie
 
 ## 2. Every terminal command is taught
 For each shell command you run or suggest:
-- Break it down token by token (program, sub-command, every flag, every argument, pipes and redirects) as a small tree or table.
+- Break it down token by token (program, sub-command, every flag, every argument, pipes and redirects) as a small tree or table. If the command-anatomy `explain` skill is available, draw the tree with its renderer script so the columns line up.
 - Give the general pattern, e.g. `docker logs [--since <time>] <container>`, so the user can build variations.
 - Mention at most two useful related flags that were not used.
 - If the command is new to the user, add it to the command deck (rule 8).

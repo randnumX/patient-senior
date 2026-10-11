@@ -81,6 +81,9 @@ plugin and the community **Spaced Repetition** plugin for reviewing cards.
 
 Plugin skills may also appear as `/patient-senior:<name>`.
 
+**Pairs with [command-anatomy](https://github.com/randnumX/command-anatomy)** - install it too and every command
+breakdown becomes a perfectly aligned anatomy tree (`/explain <command>` works on its own as well).
+
 ## Levels
 
 | Level | For | Feels like |

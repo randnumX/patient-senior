@@ -66,6 +66,22 @@ Setup picks the Obsidian vault folder that becomes your **learning hub**, copies
 Requirements: Claude Code, `python3` (for the start-of-session hook), Obsidian with the core **Bases**
 plugin and the community **Spaced Repetition** plugin for reviewing cards.
 
+### Codex, Copilot, Cursor and others
+
+The same rules work in other agents through their instruction files. The installer runs without Claude
+Code - read it first, then:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/randnumX/patient-senior/main/scripts/install_rules.py -o install_rules.py
+python3 install_rules.py --global --dry-run       # Codex (~/.codex/AGENTS.md) + Copilot CLI (~/.copilot/...)
+python3 install_rules.py --global --yes
+python3 install_rules.py --repo . --no-hub --yes  # a repo for teammates without Obsidian
+python3 install_rules.py --repo . --remove --yes  # undo
+```
+
+It writes only between `<!-- patient-senior:start -->` and `<!-- patient-senior:end -->` markers. Inside
+Claude Code, `/senior-init` runs the same script for you.
+
 ## Commands
 
 | Command | What it does |

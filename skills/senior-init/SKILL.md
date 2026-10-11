@@ -1,36 +1,29 @@
 ---
 name: senior-init
 description: >
-  Write the patient-senior rules into the current repository's instruction
-  files for other AI coding tools (AGENTS.md, GitHub Copilot, Cursor,
-  Windsurf, Cline) so they explain and teach too. Dry run first; never
-  overwrites. Use for /senior-init.
-argument-hint: "[--dry-run | --only agents|copilot|cursor|windsurf|cline]"
+  Install the patient-senior rules for other AI coding agents - Codex CLI,
+  GitHub Copilot (CLI, VS Code), Cursor, Windsurf, Cline - globally or for the
+  current repository, so they explain and teach too. Dry run first; never
+  touches text outside its markers. Use for /senior-init.
+argument-hint: "[global | repo] [--agents ...] [--no-hub] [--level light|full|deep] [--remove]"
 ---
 
 # /senior-init
 
-Source rules: `rules/senior-core.md` at the plugin root (two folders up from this skill's directory).
-Replace `{{LEVEL}}` with the configured level (default `full`) and `{{HUB}}` with the configured hub path, or
-with "the learning hub is not available in this tool; skip side-quest and flashcard files" for teammates who
-do not use Obsidian.
+All file changes are made by the installer script (exact and tested) - do not edit the files yourself.
+Script: `scripts/install_rules.py` at the plugin root (two folders up from this skill's directory).
 
-Targets (repo root):
-
-| Tool | File |
-|---|---|
-| Many agents (Codex, OpenCode, Claude Code via `@AGENTS.md`) | `AGENTS.md` |
-| GitHub Copilot | `.github/copilot-instructions.md` |
-| Cursor | `.cursor/rules/patient-senior.mdc` (frontmatter `alwaysApply: true`) |
-| Windsurf | `.windsurf/rules/patient-senior.md` |
-| Cline | `.clinerules/patient-senior.md` |
-
-Steps:
-1. **Dry run first** (always, unless the user passed `--force`): for each target say *create*, *append* (file
-   exists without our block) or *skip* (block already present). Show the list and ask before writing.
-2. Wrap the rules in markers so they can be updated or removed later:
-   `<!-- patient-senior:start -->` ... `<!-- patient-senior:end -->`. When appending to an existing file,
-   add the block at the end and change nothing else.
-3. Warn when `AGENTS.md` is imported by a `CLAUDE.md` (`@AGENTS.md`): Claude Code will then load the rules
-   from the file as well as from the plugin hook - suggest `--only` to skip it.
-4. Report what was written and how to remove it (delete the marked block).
+1. **Dry run** - explain the command, then run it and show the output:
+   ```bash
+   python3 "<plugin root>/scripts/install_rules.py" --global --dry-run
+   ```
+   - `--repo .` instead of `--global` for this repository only (`AGENTS.md`, `.github/copilot-instructions.md`,
+     `.cursor/rules/` by default).
+   - The hub path and level come from `~/.config/patient-senior/config.json`. Use `--no-hub` for teammates or
+     agents that should teach in chat without writing Obsidian notes, `--level` to set the depth.
+   - Pass `--agents` and `--remove` through from the user's arguments.
+2. Warn if the output notes that `CLAUDE.md` imports `AGENTS.md` - Claude Code already gets the rules from the
+   plugin hook; suggest `--agents copilot,cursor` to skip `AGENTS.md`.
+3. **Ask** the user to confirm, then run the same command with `--yes` instead of `--dry-run`.
+4. Tell the user how to verify (a fresh session of that agent, ask it to run `ls -la` - it should explain
+   first) and how to undo (`--remove --yes`).

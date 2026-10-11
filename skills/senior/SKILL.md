@@ -17,6 +17,14 @@ directory). The plugin's SessionStart hook injects them automatically. If this s
 substitute `{{HUB}}` and `{{LEVEL}}` from `~/.config/patient-senior/config.json`, and follow it for the
 rest of the session.
 
+## How levels are stored
+
+The plugin's `UserPromptSubmit` hook sees `/senior <level>` before you do and saves it for this session
+(`~/.local/state/patient-senior/sessions/`), so the level survives `/compact` and resume. You only need to
+confirm the switch in one line. Level resolution at session start, first match wins: this session's saved
+level, `PATIENT_SENIOR_LEVEL`, a `.patient-senior.json` (`{"level": "light"}`) in the project folder or any
+parent, `level` in `~/.config/patient-senior/config.json`, then `full`.
+
 ## Arguments
 
 | Argument | Effect |

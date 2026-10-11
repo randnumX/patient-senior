@@ -113,10 +113,15 @@ matters, and a learning checklist that ends with **teaching it back in your own 
 
 ## How it works
 
-- `rules/senior-core.md` holds the always-on rules (about 900 words).
-- A `SessionStart` hook (`hooks/senior_activate.py`) injects them into every session, filled in with your
-  hub path and level. A `SubagentStart` hook tells helper agents to return a teachable report of every
-  action and command, since you never see their intermediate steps.
+- `rules/senior-core.md` holds the always-on rules (about 900 words, roughly 1,200 tokens per session).
+- `hooks/senior_hook.py` runs at three moments:
+  - **SessionStart** - injects the rules, filled in with your hub path and level (also after `/compact`);
+  - **SubagentStart** - tells helper agents to return a teachable report of every action and command,
+    since you never see their intermediate steps;
+  - **UserPromptSubmit** - catches `/senior <level>` and remembers it for the session, so a level you chose
+    survives compaction.
+- Pin a level per project with a `.patient-senior.json` file: `{"level": "light"}`. Priority: session choice,
+  `PATIENT_SENIOR_LEVEL`, project file, `~/.config/patient-senior/config.json`, then `full`.
 - Each `/command` is a skill in `skills/` - plain Markdown instructions you can read and change.
 
 ## Honest limitations
